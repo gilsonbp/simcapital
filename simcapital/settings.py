@@ -31,6 +31,7 @@ if not DEBUG:
     ADMINS = (('Gilson Paulino', 'gilsonbp@gmail.com'),)
     MANAGERS = ADMINS
 
+AUTH_USER_MODEL = 'simauth.User'
 
 # Application definition
 
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'apps.simauth',
 ]
 
 MIDDLEWARE = [
