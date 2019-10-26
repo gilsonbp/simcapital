@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=250, verbose_name=_('E-mail Confirmation'), null=True)
 
     groups = models.ManyToManyField(
-        Group,
+        SIMGroup,
         verbose_name=_('groups'),
         blank=True,
         help_text=_(
@@ -64,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         related_query_name="user",
     )
     user_permissions = models.ManyToManyField(
-        Permission,
+        SIMPermission,
         verbose_name=_('user permissions'),
         blank=True,
         help_text=_('Specific permissions for this user.'),
