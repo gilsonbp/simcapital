@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.setdefault('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 if not DEBUG:
     ADMINS = (('Gilson Paulino', 'gilsonbp@gmail.com'),)
