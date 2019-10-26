@@ -112,6 +112,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Creating a log folder
+if not os.path.exists(os.path.join(BASE_DIR, 'logs')):
+    os.makedirs(os.path.join(BASE_DIR, 'logs'))
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
