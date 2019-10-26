@@ -77,7 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['name']
 
     def __str__(self):
-        return self.name
+        return self.get_full_name()
 
     class Meta:
         verbose_name = _('User')
@@ -86,3 +86,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def clean(self):
         super(User, self).clean()
         self.email = self.__class__.objects.normalize_email(self.email)
+
+    def get_full_name(self):
+        return self.name
+
+    get_full_name.short_description = _('Full name')
