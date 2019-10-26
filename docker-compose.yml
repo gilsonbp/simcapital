@@ -8,7 +8,7 @@ services:
       - POSTGRES_USER=simcapital
       - POSTGRES_PASSWORD=string
     ports:
-      - "45432:5432"
+      - "35432:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
   pgadmin:
@@ -17,6 +17,6 @@ services:
       PGADMIN_DEFAULT_EMAIL: "gilsonbp@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "string"
     ports:
-      - "16543:80"
+      - "26543:80"
     depends_on:
       - db
