@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+if not DEBUG:
+    ADMINS = (('Gilson Paulino', 'gilsonbp@gmail.com'),)
+    MANAGERS = ADMINS
+
 
 # Application definition
 
