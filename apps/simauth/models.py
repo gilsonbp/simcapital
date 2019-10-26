@@ -82,3 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
+
+    def clean(self):
+        super(User, self).clean()
+        self.email = self.__class__.objects.normalize_email(self.email)
