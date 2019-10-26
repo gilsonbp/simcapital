@@ -39,6 +39,19 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_superuser(self, email, name, password):
+        if not password:
+            password = 123456
+        user = self.create_user(
+            email=email,
+            name=name,
+            password=password,
+        )
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
