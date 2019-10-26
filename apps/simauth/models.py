@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import (
     AbstractBaseUser,
     PermissionsMixin, Permission, Group
@@ -22,6 +23,21 @@ class SIMGroup(Group):
         proxy = True
         verbose_name = _('Group')
         verbose_name_plural = _('Groups')
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, name, password=None):
+        if not email:
+            raise ValueError(_('Users must have an email.'))
+
+        user = self.model(
+            email=email,
+            name=name,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -75,6 +91,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
+
+    objects = UserManager()
 
     def __str__(self):
         return self.get_full_name()
