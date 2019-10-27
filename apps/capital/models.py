@@ -20,25 +20,29 @@ class CapitalUser(User):
     def get_avg_salary(self):
         avg = self.salary.all().aggregate(
             Avg('salary_value'))
-
+        if not avg['salary_value__avg']:
+            return 0
         return round(avg['salary_value__avg'], 2)
 
     def get_avg_discount(self):
         avg = self.salary.all().aggregate(
             Avg('salary_discount'))
-
+        if not avg['salary_discount__avg']:
+            return 0
         return round(avg['salary_discount__avg'], 2)
 
     def get_max_salary(self):
         max = self.salary.all().aggregate(
             Max('salary_value'))
-
+        if not max['salary_value__max']:
+            return 0
         return round(max['salary_value__max'], 2)
 
     def get_min_salary(self):
         min = self.salary.all().aggregate(
             Min('salary_value'))
-
+        if not min['salary_value__min']:
+            return 0
         return round(min['salary_value__min'], 2)
 
 
