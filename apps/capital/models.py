@@ -25,7 +25,6 @@ class Salary(models.Model):
         related_name='salary'
     )
     salary_date = models.DateField(
-        auto_now=True,
         verbose_name=_('Salary Date')
     )
     salary_value = models.DecimalField(
@@ -42,5 +41,6 @@ class Salary(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        unique_together = ('capital_user', 'salary_date')
         verbose_name = _('Salary')
         verbose_name_plural = _('Salaries')
