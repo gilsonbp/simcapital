@@ -30,7 +30,7 @@ class CapitalUserSerializer(serializers.ModelSerializer):
 
 
 class SalarySerializer(serializers.ModelSerializer):
-    cpf = serializers.CharField(source='capital_user.cpf')
+    cpf = serializers.CharField(source='capital_user.cpf', read_only=True)
 
     class Meta:
         model = Salary
