@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, Max, Min
 from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
@@ -28,6 +28,18 @@ class CapitalUser(User):
             Avg('salary_discount'))
 
         return round(avg['salary_discount__avg'], 2)
+
+    def get_max_salary(self):
+        max = self.salary.all().aggregate(
+            Max('salary_value'))
+
+        return round(max['salary_value__max'], 2)
+
+    def get_min_salary(self):
+        min = self.salary.all().aggregate(
+            Min('salary_value'))
+
+        return round(min['salary_value__min'], 2)
 
 
 class Salary(models.Model):

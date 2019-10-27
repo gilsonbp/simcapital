@@ -67,3 +67,11 @@ class SalaryTestCase(TestCase):
     def test_average_discount(self):
         user = CapitalUser.objects.get(email='teste@teste.com')
         self.assertEqual(user.get_avg_discount(), Decimal('206.78'))
+
+    def test_max_salary(self):
+        user = CapitalUser.objects.get(email='teste@teste.com')
+        self.assertEqual(user.get_max_salary(), Decimal('4600.50'))
+
+    def test_min_salary(self):
+        user = CapitalUser.objects.get(email='teste@teste.com')
+        self.assertEqual(user.get_min_salary(), Decimal('2000.12'))
