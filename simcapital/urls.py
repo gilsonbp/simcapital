@@ -9,4 +9,5 @@ urlpatterns = [
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('simauth/', include('apps.simauth.urls', namespace='simauth')),
+    path('capital/', include('apps.capital.urls', namespace='capital')),
 ]
