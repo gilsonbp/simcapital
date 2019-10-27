@@ -129,3 +129,18 @@ class UserAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], "Teste User 2")
         self.assertEqual(response.data['cpf'], "00000000000")
+
+    def test_delete_user(self):
+        user = CapitalUser.objects.create(
+            email='teste3@teste.com',
+            name='Teste',
+            cpf='12345678903',
+            birth_date='1983-10-29'
+        )
+
+        url = reverse('capital:users-detail', kwargs={'pk': user.pk})
+
+        response = self.client.delete(url)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertIsNone(response.data)
