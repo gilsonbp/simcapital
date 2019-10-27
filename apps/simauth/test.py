@@ -1,4 +1,8 @@
 from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase, APIClient
+
 from apps.simauth.models import User
 
 
@@ -23,3 +27,32 @@ class UserTestCase(TestCase):
         self.assertEqual(user.email, 'super@teste.com')
         self.assertEqual(user.name, 'Teste Super User')
         self.assertEqual(user.is_superuser, True)
+
+
+class UserAPITestCase(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(
+            'teste@teste.com',
+            'Teste User'
+        )
+        cls.superuser = User.objects.create_superuser(
+            'super@teste.com',
+            'Teste Super User',
+            '123456'
+        )
+
+    def setUp(self):
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
+
+    def test_create_user(self):
+        url = reverse('simauth:users-list')
+        data = {
+            "email": "teste1@teste.com",
+            "password": "123456",
+            "name": "Gilson Paulino",
+            "is_superuser": False
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
