@@ -62,4 +62,4 @@ class SalaryTestCase(TestCase):
 
     def test_average_salary(self):
         user = CapitalUser.objects.get(email='teste@teste.com')
-        self.assertEqual(user.get_avg(), Decimal('3366.92'))
+        self.assertEqual(user.get_avg_salary(), Decimal('3366.92'))

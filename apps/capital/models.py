@@ -17,7 +17,7 @@ class CapitalUser(User):
         verbose_name = _('Capital User')
         verbose_name_plural = _('Capital Users')
 
-    def get_avg(self):
+    def get_avg_salary(self):
         avg = self.salary.all().aggregate(
             Avg('salary_value'))
 
