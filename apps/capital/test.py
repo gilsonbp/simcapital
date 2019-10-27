@@ -144,3 +144,29 @@ class CapitalUserAPITestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertIsNone(response.data)
+
+
+class SalaryAPITestCase(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = CapitalUser.objects.create(
+            email='teste4@teste.com',
+            name='Teste User',
+            cpf='12345678901',
+            birth_date='1983-10-31'
+        )
+
+    def setUp(self):
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
+
+    def test_create_salary(self):
+        url = reverse('capital:salaries-list')
+        data = {
+            "capital_user": self.user.pk,
+            "salary_date": "2019-11-02",
+            "salary_value": "3050.30",
+            "salary_discount": "260.60"
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
