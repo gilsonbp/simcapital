@@ -62,3 +62,17 @@ class UserAPITestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 2)
+
+    def test_update_user(self):
+        user = User.objects.create_user('teste3@teste.com', 'Teste')
+
+        url = reverse('simauth:users-detail', kwargs={'pk': user.pk})
+        data = {
+            "name": "Teste User 3",
+            "is_superuser": True
+        }
+
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], "Teste User 3")
+        self.assertEqual(response.data['is_superuser'], True)
