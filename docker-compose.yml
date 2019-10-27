@@ -1,8 +1,22 @@
 version: '3'
 
 services:
+  web:
+    build: .
+    restart: always
+    volumes:
+      - .:/src
+    env_file:
+      - web.env
+    ports:
+      - 8010:8000
+    links:
+      - db
+    depends_on:
+      - db
   db:
     image: postgres
+    restart: always
     environment:
       - POSTGRES_DB=simcapital
       - POSTGRES_USER=simcapital
@@ -13,6 +27,7 @@ services:
       - ./data:/var/lib/postgresql/data
   pgadmin:
     image: dpage/pgadmin4
+    restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: "gilsonbp@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "string"

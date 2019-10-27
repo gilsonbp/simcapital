@@ -7,3 +7,6 @@ RUN pip install --upgrade pip
 WORKDIR /src
 COPY requirements.txt /src/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Entry-point
+CMD ["/bin/bash", "/src/start_server.sh"]
