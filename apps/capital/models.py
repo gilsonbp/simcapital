@@ -23,6 +23,12 @@ class CapitalUser(User):
 
         return round(avg['salary_value__avg'], 2)
 
+    def get_avg_discount(self):
+        avg = self.salary.all().aggregate(
+            Avg('salary_discount'))
+
+        return round(avg['salary_discount__avg'], 2)
+
 
 class Salary(models.Model):
     capital_user = models.ForeignKey(
