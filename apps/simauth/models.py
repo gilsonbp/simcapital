@@ -111,6 +111,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.get_full_name()
 
     class Meta:
+        ordering = ('email',)
         verbose_name = _('User')
         verbose_name_plural = _('Users')
 
