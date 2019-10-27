@@ -80,7 +80,7 @@ class SalaryTestCase(TestCase):
         self.assertEqual(user.get_min_salary(), Decimal('2000.12'))
 
 
-class UserAPITestCase(APITestCase):
+class CapitalUserAPITestCase(APITestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = CapitalUser.objects.create(
