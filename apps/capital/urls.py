@@ -7,6 +7,7 @@ app_name = 'capital'
 
 router = DefaultRouter()
 router.register(r'users', views.CapitalUserViewSet, base_name='users')
+router.register(r'salaries', views.SalaryViewSet, base_name='salaries')
 
 urlpatterns = [
     path('', include(router.urls)),
