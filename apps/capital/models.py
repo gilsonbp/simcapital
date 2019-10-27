@@ -70,6 +70,7 @@ class Salary(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        ordering = ('salary_date',)
         unique_together = ('capital_user', 'salary_date')
         verbose_name = _('Salary')
         verbose_name_plural = _('Salaries')
