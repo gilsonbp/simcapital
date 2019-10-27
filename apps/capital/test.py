@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 
 from django.test import TestCase
@@ -35,8 +35,20 @@ class SalaryTestCase(TestCase):
         Salary.objects.create(
             capital_user=user,
             salary_date=date.today(),
-            salary_value=Decimal('2500.12'),
-            salary_discount=Decimal('100.12'),
+            salary_value=Decimal('2000.12'),
+            salary_discount=Decimal('120.12'),
+        )
+        Salary.objects.create(
+            capital_user=user,
+            salary_date=date.today() + timedelta(days=1),
+            salary_value=Decimal('3500.15'),
+            salary_discount=Decimal('200.12'),
+        )
+        Salary.objects.create(
+            capital_user=user,
+            salary_date=date.today() + timedelta(days=2),
+            salary_value=Decimal('4600.50'),
+            salary_discount=Decimal('300.10'),
         )
 
     def test_create_salary(self):
@@ -45,5 +57,5 @@ class SalaryTestCase(TestCase):
             capital_user__email='teste@teste.com',
             salary_date=date.today()
         )
-        self.assertEqual(salary.salary_value, Decimal('2500.12'))
-        self.assertEqual(salary.salary_discount, Decimal('100.12'))
+        self.assertEqual(salary.salary_value, Decimal('2000.12'))
+        self.assertEqual(salary.salary_discount, Decimal('120.12'))
