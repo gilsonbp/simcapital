@@ -6,7 +6,7 @@ from apps.simauth import views
 app_name = 'simauth'
 
 router = DefaultRouter()
-router.register(r'users', views.UserViewSet)
+router.register(r'users', views.UserViewSet, base_name='users')
 
 urlpatterns = [
     path('', include(router.urls)),
