@@ -15,3 +15,32 @@ class CapitalUser(User):
     class Meta:
         verbose_name = _('Capital User')
         verbose_name_plural = _('Capital Users')
+
+
+class Salary(models.Model):
+    capital_user = models.ForeignKey(
+        CapitalUser,
+        verbose_name=_('Capital User'),
+        on_delete=models.CASCADE,
+        related_name='salary'
+    )
+    salary_date = models.DateField(
+        auto_now=True,
+        verbose_name=_('Salary Date')
+    )
+    salary_value = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        verbose_name=_('Salary Value')
+    )
+    salary_discount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        verbose_name=_('Salary Discount')
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Salary')
+        verbose_name_plural = _('Salaries')
