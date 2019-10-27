@@ -7,6 +7,8 @@ SIM Capital Challenge Project
 
 - Após do download do sistema acesse a pasta do projeto e execute o comando abaixo para inicializar:
     - `docker-compose up -d`
+    > Esse processo pode demorar uns 40 segundos. Se tentar executar os demais comandos antes pode receber uma mensagem pois o banco de dados ainda está sendo criado.
+    > Se preferir pode remover o parâmetro `-d` para visualizar a inicialização.
 - Para executar os testes execute o comando:
     - `docker-compose exec web python manage.py test`
     - Para gerar um relatório de cobertura de testes execute o comando abaixo:
