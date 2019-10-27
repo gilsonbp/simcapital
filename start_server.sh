@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # wait for Postgres to start
-sleep 10
+sleep 30
 
 # Django
 pip install -r /src/requirements.txt
