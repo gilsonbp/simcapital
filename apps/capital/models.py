@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Avg
 from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
@@ -15,6 +16,12 @@ class CapitalUser(User):
     class Meta:
         verbose_name = _('Capital User')
         verbose_name_plural = _('Capital Users')
+
+    def get_avg(self):
+        avg = self.salary.all().aggregate(
+            Avg('salary_value'))
+
+        return round(avg['salary_value__avg'], 2)
 
 
 class Salary(models.Model):
