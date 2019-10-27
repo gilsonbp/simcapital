@@ -104,3 +104,9 @@ class UserAPITestCase(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_list_capital_users(self):
+        url = reverse('capital:users-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
