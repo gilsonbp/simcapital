@@ -110,3 +110,22 @@ class UserAPITestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
+
+    def test_update_user(self):
+        user = CapitalUser.objects.create(
+            email='teste2@teste.com',
+            name='Teste',
+            cpf='12345678902',
+            birth_date='1983-10-30'
+        )
+
+        url = reverse('capital:users-detail', kwargs={'pk': user.pk})
+        data = {
+            "name": "Teste User 2",
+            "cpf": "00000000000"
+        }
+
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], "Teste User 2")
+        self.assertEqual(response.data['cpf'], "00000000000")
