@@ -76,3 +76,13 @@ class UserAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], "Teste User 3")
         self.assertEqual(response.data['is_superuser'], True)
+
+    def test_delete_user(self):
+        user = User.objects.create_user('teste3@teste.com', 'Teste')
+
+        url = reverse('simauth:users-detail', kwargs={'pk': user.pk})
+
+        response = self.client.delete(url)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertIsNone(response.data)
