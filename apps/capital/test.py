@@ -184,3 +184,22 @@ class SalaryAPITestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 1)
+
+    def test_update_salary(self):
+        data_salary = {
+            "capital_user": self.user,
+            "salary_date": "2019-11-02",
+            "salary_value": "3050.30",
+            "salary_discount": "260.60"
+        }
+        salary = Salary.objects.create(**data_salary)
+
+        url = reverse('capital:salaries-detail', kwargs={'pk': salary.pk})
+        data = {
+            "salary_date": "2019-11-06",
+            "salary_value": "3050.30",
+        }
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['salary_date'], "2019-11-06")
+        self.assertEqual(response.data['salary_value'], '3050.30')
