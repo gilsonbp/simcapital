@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.capital.models import CapitalUser
+from apps.capital.models import CapitalUser, Salary
 
 
 class CapitalUserSerializer(serializers.ModelSerializer):
@@ -27,3 +27,9 @@ class CapitalUserSerializer(serializers.ModelSerializer):
 
     def get_min_salary(self, obj):
         return obj.get_min_salary()
+
+
+class SalarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Salary
+        fields = '__all__'
