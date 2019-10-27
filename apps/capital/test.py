@@ -2,6 +2,9 @@ from datetime import date, timedelta
 from decimal import Decimal
 
 from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase, APIClient
 
 from apps.capital.models import CapitalUser, Salary
 
@@ -75,3 +78,29 @@ class SalaryTestCase(TestCase):
     def test_min_salary(self):
         user = CapitalUser.objects.get(email='teste@teste.com')
         self.assertEqual(user.get_min_salary(), Decimal('2000.12'))
+
+
+class UserAPITestCase(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = CapitalUser.objects.create(
+            email='teste@teste.com',
+            name='Teste User',
+            cpf='12345678901',
+            birth_date='1983-10-31'
+        )
+
+    def setUp(self):
+        self.client = APIClient()
+        self.client.force_authenticate(self.user)
+
+    def test_create_capital_user(self):
+        url = reverse('capital:users-list')
+        data = {
+            "email": "teste1@teste.com",
+            "name": "Gilson Paulino",
+            "cpf": "12345678901",
+            "birth_date": "1983-10-31"
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
